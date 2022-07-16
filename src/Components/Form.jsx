@@ -32,7 +32,7 @@ const Form = () => {
     e.preventDefault();
     if (!title) return;
     const a = await dispatch(addTodoAsync({title}))
-    console.log(a)
+   
     setTitle("")
 
     

@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react'
 import { useDispatch, useSelector } from "react-redux";
-import {  toggle , destroy, getTodosAsync} from '../redux/todos/todosSlice';
+import {getTodosAsync , toggleTodoAsync, removeTodoAsync} from '../redux/todos/todosSlice';
 import Loading from './Loading';
 import Error from './Error';
 
@@ -37,9 +37,15 @@ const dispatch = useDispatch()
 
 const handleDestroy = (id) => {
 	if(window.confirm("Are you sure? ")) {
-		dispatch(destroy(id))
+		dispatch(removeTodoAsync(id))
 	}
 
+}
+
+const handleToggle = async (id, completed) => {
+
+
+	await dispatch(toggleTodoAsync({id , data: {completed} }))
 }
 
 
@@ -56,8 +62,8 @@ if (error) {
 					<input className="toggle" type="checkbox"/>
 					<label>Learn JavaScript</label>
 					<button className="destroy"></button>
-				</div>
-			</li> */}
+				</div>s
+			</li> */} 
 
 		
 
@@ -66,8 +72,15 @@ if (error) {
 
 			<li className={todo.completed ? "completed" : ""} key={todo.id}>
 				<div className="view">
-					<input className="toggle" type="checkbox" onChange={() => dispatch(toggle({id: todo.id}))} checked={todo.completed} />
+					<input 
+					className="toggle" 
+					type="checkbox" 
+					onChange={() => handleToggle(todo.id, !todo.completed)} 
+					checked={todo.completed}
+					/>
+					
 					<label>{todo.title}</label>
+					
 					<button className="destroy" onClick={() => handleDestroy(todo.id)}></button>
 				</div>
 			</li>
