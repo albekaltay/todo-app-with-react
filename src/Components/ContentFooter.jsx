@@ -1,7 +1,8 @@
 import React , {useEffect} from 'react'
 import { useSelector } from 'react-redux'
-import { updateActiveFilter, clearCompleted } from '../redux/todos/todosSlice';
+import { removeCompletedTodosAsync, updateActiveFilter } from '../redux/todos/todosSlice';
 import { useDispatch } from 'react-redux';
+
 
 const ContentFooter = () => {
 
@@ -15,8 +16,18 @@ const ContentFooter = () => {
     }, [activeFilter])
     
   
-
     const dispatch = useDispatch();
+
+    const handleClearCompleted = () => {
+        if(window.confirm("Are you sure you want to clear completed todos ?")){
+
+            dispatch(removeCompletedTodosAsync())
+
+        }
+
+
+    }
+
 
   return (
       
@@ -41,7 +52,7 @@ const ContentFooter = () => {
     </ul>
 
   
-    <button className="clear-completed" onClick={() => dispatch(clearCompleted())}>
+    <button className="clear-completed" onClick={() => handleClearCompleted()}>
         Clear completed
     </button>
 </footer>

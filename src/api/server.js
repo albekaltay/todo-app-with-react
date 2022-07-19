@@ -66,6 +66,19 @@ app.delete('/todos/:id', (req, res) => {
   }
 
   res.send(todos);
+
+
+});
+
+app.delete('/todos', (req,res) => {
+
+    
+  const newTodos = todos.filter((todo) => todo.completed === false);
+  todos = newTodos;
+
+  res.send(todos);
+
+
 });
 
 const PORT = 7000;
